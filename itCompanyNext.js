@@ -1,10 +1,9 @@
 class Employ {
-  constructor(side) {
-    this.rate;
-    this.grade;
-    this.side = side;
+  constructor(settings) {
+    this.rate = settings.rate;
+    this.grade = settings.grade;
+    this.side = settings.side;
     this.tasks = [];
-    // this.parallel = options.parallel;
   }
   createEmploy() {
     const devGrade = gradeGenetation();
@@ -20,7 +19,6 @@ class Employ {
 
     this.rate = devRate;
     this.grade = devGrade;
-    //   this.side = sideGenetation();
 
     return this;
   }
@@ -28,13 +26,17 @@ class Employ {
 
 class FrontendDeveloper extends Employ {
   constructor() {
-    super("Front");
+    super({
+      side: "Front",
+    });
   }
 }
 
 class BackendDeveloper extends Employ {
   constructor() {
-    super("Back");
+    super({
+      side: 'Back',
+    });
   }
 }
 
@@ -63,10 +65,7 @@ class ItCompany {
 
   hireEmployees() {
     const devs = randomGeneration(1, 3);
-    //   for (let i = 0; i < devs; i++) {
-    //     const employ = new Employ();
-    //     this.employees.push(employ.createEmploy());
-    //   }
+  
     for (let i = 0; i < devs; i++) {
       const frontEmploy = new FrontendDeveloper();
       let frontCreation = frontEmploy.createEmploy();
@@ -78,42 +77,23 @@ class ItCompany {
       let backCreation = backEmploy.createEmploy();
       this.employees.push(backCreation);
     }
-    // console.log(this.employees);
+   
   }
 
   calculateProjectImplementation(project) {
     console.log("project :>> ", project);
-    // console.log("this.employees :>> ", this.employees);
+    console.log("this.employees :>> ", this.employees);
     const assignTask = project.map((task, index) => {
-      let indexOfTask = 0;
-      this.employees.flatMap((employ) => {
+      const indexOfTask = 0;
+      this.employees.forEach((employ) => {
         if (task.side === employ.side) {
-          indexOfTask = index +1;
+          indexOfTask = index + 1;
           employ.tasks.push(indexOfTask);
           return;
-         }
+        }
       });
     });
     console.log(" this.employees :>> ", this.employees);
-
-    // const assignTask = project.map((task) => {
-    //   console.log("task :>> ", task);
-    //   const employeeIndex = this.employees.findIndex(
-    //     (employ) => employ.side === task.side
-    //   );
-    //   console.log("employeeIndex :>> ", employeeIndex);
-    //   //   if (!~employeeIndex) {
-    //   //     const employ = new Employ();
-    //   //     this.employees.push(employ.createEmploy());
-
-    //   //     console.log(`Для данной задачи нет разработчиков! Side: ${task.side}.`);
-    //   //     return;
-    //   //     // throw new Error(`Для данной задачи нет разработчиков! Side: ${task.side}.`);
-    //   //   }
-
-    //   //   this.employees[employeeIndex].tasks.push(task);
-    //   // console.log('eploy :>> ', this.employees);
-    // });
 
     let estimation = 0;
 
@@ -122,8 +102,6 @@ class ItCompany {
 
       employ.tasks.forEach((task) => {
         sum = task.estimate + sum;
-
-        //   console.log('sum', sum);
       });
 
       if (employ.grade === "Junior") {
@@ -137,7 +115,6 @@ class ItCompany {
       }
       estimation = sum + estimation;
     });
-    //   console.log("estimation-", estimation, );
 
     let numberOfDays = 0;
     const employCfgg = this.employees.map((employ) => {
@@ -146,7 +123,7 @@ class ItCompany {
       employ.tasks.forEach((task) => {
         daySum = task.estimate + daySum;
       });
-      // console.log('daySum', daySum);
+
       if (employ.grade === "Junior") {
         daySum = (daySum * 1.5) / 8;
       }
