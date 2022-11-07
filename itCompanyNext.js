@@ -8,17 +8,18 @@ class Employ {
   createEmploy() {
     const devGrade = gradeGenetation();
     let devRate = 0;
-    const grades = {
-      junior: "Junior",
-      middle: "Middle",
-      signor: "Signor"
+    const DEVELOPER_GRADES = {
+      junior: {grade: "Junior", rate: 12 }, 
+      middle: {grade: "Middle", rate: 22 }, 
+      signor: {grade: "Signor", rate: 29 }, 
+      
     }
-    if (devGrade == grades.junior) {
-      devRate = 12;
-    } else if (devGrade == grades.middle) {
-      devRate = 22;
+    if (devGrade == DEVELOPER_GRADES.junior.grade) {
+      devRate = DEVELOPER_GRADES.junior.rate;
+    } else if (devGrade == DEVELOPER_GRADES.middle.grade) {
+      devRate = DEVELOPER_GRADES.middle.rate;
     } else {
-      devRate = 29;
+      devRate = DEVELOPER_GRADES.signor.rate;
     }
 
     this.rate = devRate;
