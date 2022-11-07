@@ -8,10 +8,14 @@ class Employ {
   createEmploy() {
     const devGrade = gradeGenetation();
     let devRate = 0;
-
-    if (devGrade == "Junior") {
+    const grades = {
+      junior: "Junior",
+      middle: "Middle",
+      signor: "Signor"
+    }
+    if (devGrade == grades.junior) {
       devRate = 12;
-    } else if (devGrade == "Middle") {
+    } else if (devGrade == grades.middle) {
       devRate = 22;
     } else {
       devRate = 29;
