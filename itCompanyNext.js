@@ -9,11 +9,10 @@ class Employ {
     const devGrade = gradeGenetation();
     let devRate = 0;
     const DEVELOPER_GRADES = {
-      junior: {grade: "Junior", rate: 12 }, 
-      middle: {grade: "Middle", rate: 22 }, 
-      signor: {grade: "Signor", rate: 29 }, 
-      
-    }
+      junior: { grade: "Junior", rate: 12 },
+      middle: { grade: "Middle", rate: 22 },
+      signor: { grade: "Signor", rate: 29 },
+    };
     if (devGrade == DEVELOPER_GRADES.junior.grade) {
       devRate = DEVELOPER_GRADES.junior.rate;
     } else if (devGrade == DEVELOPER_GRADES.middle.grade) {
@@ -40,7 +39,7 @@ class FrontendDeveloper extends Employ {
 class BackendDeveloper extends Employ {
   constructor() {
     super({
-      side: 'Back',
+      side: "Back",
     });
   }
 }
@@ -50,14 +49,20 @@ class Customer {
     this.projectSettings = [];
   }
   createProject() {
-    const RANDOM_GENERATION_TASK_SETTINGS = {min: 1, max: 6};
-    const RANDOM_GENERATION_ESTIMATION_SETTINGS ={min: 1, max: 30};
-    const numberOfTasks = randomGeneration(RANDOM_GENERATION_TASK_SETTINGS.min, RANDOM_GENERATION_TASK_SETTINGS.max);
+    const RANDOM_GENERATION_TASK_SETTINGS = { min: 1, max: 6 };
+    const RANDOM_GENERATION_ESTIMATION_SETTINGS = { min: 1, max: 30 };
+    const numberOfTasks = randomGeneration(
+      RANDOM_GENERATION_TASK_SETTINGS.min,
+      RANDOM_GENERATION_TASK_SETTINGS.max
+    );
     for (let i = 1; i < numberOfTasks; i++) {
       const task = {
         description: `Task ${i}`,
         side: sideGenetation(),
-        estimate: randomGeneration(RANDOM_GENERATION_ESTIMATION_SETTINGS.min, RANDOM_GENERATION_ESTIMATION_SETTINGS.max),
+        estimate: randomGeneration(
+          RANDOM_GENERATION_ESTIMATION_SETTINGS.min,
+          RANDOM_GENERATION_ESTIMATION_SETTINGS.max
+        ),
       };
 
       this.projectSettings.push(task);
@@ -71,28 +76,28 @@ class ItCompany {
   employees = [];
 
   hireEmployees() {
-    const RANDOM_GENERATION_DEVS = {min: 1, max: 3}
-    const devs = randomGeneration(RANDOM_GENERATION_DEVS.min, RANDOM_GENERATION_DEVS.max);
-  
-    for (let i = 0; i < devs; i++) {
-      const frontEmploy = new FrontendDeveloper();
-      let frontCreation = frontEmploy.createEmploy();
-      this.employees.push(frontCreation);
-    }
+    const RANDOM_GENERATION_DEVS = { min: 1, max: 3 };
+    const devs = randomGeneration(
+      RANDOM_GENERATION_DEVS.min,
+      RANDOM_GENERATION_DEVS.max
+    );
 
-    for (let i = 0; i < devs; i++) {
+    const employArr = Array(devs).fill();
+    employArr.forEach((employ) => {
+      const frontEmploy = new FrontendDeveloper();
       const backEmploy = new BackendDeveloper();
+      let frontCreation = frontEmploy.createEmploy();
       let backCreation = backEmploy.createEmploy();
+      this.employees.push(frontCreation);
       this.employees.push(backCreation);
-    }
-   
+    });
   }
 
   calculateProjectImplementation(project) {
     console.log("project :>> ", project);
     console.log("this.employees :>> ", this.employees);
     const assignTask = project.map((task, index) => {
-      const indexOfTask = 0;
+      let indexOfTask = 0;
       this.employees.forEach((employ) => {
         if (task.side === employ.side) {
           indexOfTask = index + 1;
@@ -101,7 +106,6 @@ class ItCompany {
         }
       });
     });
-    console.log(" this.employees :>> ", this.employees);
 
     let estimation = 0;
 
