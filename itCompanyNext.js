@@ -50,12 +50,14 @@ class Customer {
     this.projectSettings = [];
   }
   createProject() {
-    const numberOfTasks = randomGeneration(1, 6);
+    const RANDOM_GENERATION_TASK_SETTINGS = {min: 1, max: 6};
+    const RANDOM_GENERATION_ESTIMATION_SETTINGS ={min: 1, max: 30};
+    const numberOfTasks = randomGeneration(RANDOM_GENERATION_TASK_SETTINGS.min, RANDOM_GENERATION_TASK_SETTINGS.max);
     for (let i = 1; i < numberOfTasks; i++) {
       const task = {
         description: `Task ${i}`,
         side: sideGenetation(),
-        estimate: randomGeneration(1, 30),
+        estimate: randomGeneration(RANDOM_GENERATION_ESTIMATION_SETTINGS.min, RANDOM_GENERATION_ESTIMATION_SETTINGS.max),
       };
 
       this.projectSettings.push(task);
@@ -69,7 +71,8 @@ class ItCompany {
   employees = [];
 
   hireEmployees() {
-    const devs = randomGeneration(1, 3);
+    const RANDOM_GENERATION_DEVS = {min: 1, max: 3}
+    const devs = randomGeneration(RANDOM_GENERATION_DEVS.min, RANDOM_GENERATION_DEVS.max);
   
     for (let i = 0; i < devs; i++) {
       const frontEmploy = new FrontendDeveloper();
